@@ -47,7 +47,7 @@ func main() {
 
 	// 1. Add the "Hello from Launchpad!" text to IPFS
 	fmt.Println("Adding file to IPFS")
-	cid, err := addFile(sh, "Hello from Launchpad!!")
+	cid, err := addFile(sh, "Hello from Launchpad!")
 	if err != nil {
 		fmt.Println("Error adding file to IPFS:", err.Error())
 		return
