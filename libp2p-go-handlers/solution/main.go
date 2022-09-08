@@ -20,28 +20,31 @@ func createNode() host.Host {
 }
 
 func readHelloProtocol(s network.Stream) error {
+	// TO BE IMPLEMENTED: Read the stream and print its content
 	buf := bufio.NewReader(s)
 	message, err := buf.ReadString('\n')
 	if err != nil {
 		return err
 	}
 
-	s.Conn().RemotePeer().String()
+	connection := s.Conn()
 
-	log.Printf("Message from '%s': %s", s.Conn().RemotePeer().String(), message)
+	log.Printf("Message from '%s': %s", connection.RemotePeer().String(), message)
 	return nil
 }
 
 func runTargetNode(nodeInfo chan peer.AddrInfo) {
 	ctx, _ := context.WithCancel(context.Background())
 
+	log.Printf("Creating target node...")
 	targetNode := createNode()
+	log.Printf("Target node created with ID '%s'", targetNode.ID().String())
 
-	// TO BE IMPLEMENTED
+	// TO BE IMPLEMENTED: Set stream handler for the "/hello/1.0.0" protocol
 	targetNode.SetStreamHandler("/hello/1.0.0", func(s network.Stream) {
-		log.Println("target new stream")
-		if err := doEcho(s); err != nil {
-			log.Println(err)
+		log.Printf("/hello/1.0.0 stream created")
+		err := readHelloProtocol(s)
+		if err != nil {
 			s.Reset()
 		} else {
 			s.Close()
@@ -53,18 +56,21 @@ func runTargetNode(nodeInfo chan peer.AddrInfo) {
 }
 
 func runSourceNode(targetNodeInfo peer.AddrInfo) {
+	log.Printf("Creating source node...")
 	sourceNode := createNode()
+	log.Printf("Source node created with ID '%s'", sourceNode.ID().String())
 
 	sourceNode.Connect(context.Background(), targetNodeInfo)
 
-	// TO BE IMPLEMENTED
+	// TO BE IMPLEMENTED: Open stream and send message
 	stream, err := sourceNode.NewStream(context.Background(), targetNodeInfo.ID, "/hello/1.0.0")
 	if err != nil {
 		panic(err)
 	}
 
-	s := "Hola\ndsdssdsds"
-	_, err = stream.Write([]byte(s))
+	message := "Hello from Launchpad!\n"
+	log.Printf("Sending message...")
+	_, err = stream.Write([]byte(message))
 	if err != nil {
 		panic(err)
 	}
