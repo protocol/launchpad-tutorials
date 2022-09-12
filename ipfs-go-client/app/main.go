@@ -2,6 +2,10 @@ package main
 
 import (
 	"fmt"
+	"time"
+
+	"io"
+	"strings"
 
 	shell "github.com/ipfs/go-ipfs-api"
 )
@@ -70,7 +74,7 @@ func main() {
 		fmt.Println("Error downloading file:", err.Error())
 		return
 	}
-	fmt.Println("File downloaded")
+	fmt.Println("File donwloaded")
 
 	separator()
 
