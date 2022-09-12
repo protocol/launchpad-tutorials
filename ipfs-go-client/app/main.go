@@ -11,29 +11,45 @@ import (
 )
 
 // Paste here the local path of your computer where the file will be downloaded
-const YourLocalPath = ""
+const YourLocalPath = "../../../Downloads"
 
 // Paste here your public key
-const YourPublicKey = ""
+const YourPublicKey = "k51qzi5uqu5dgpg2kqskcqtw8o4q2f54lal1rk2hdbru0nkt09bsbj9solvrdv"
 
 func addFile(sh *shell.Shell, text string) (string, error) {
-	// TO BE IMPLEMENTED
+	return sh.Add(strings.NewReader(text))
 }
 
 func readFile(sh *shell.Shell, cid string) (*string, error) {
-	// TO BE IMPLEMENTED
+	reader, err := sh.Cat(fmt.Sprintf("/ipfs/%s", cid))
+	if err != nil {
+		return nil, fmt.Errorf("Error reading the file: %s", err.Error())
+	}
+
+	bytes, err := io.ReadAll(reader)
+	if err != nil {
+		return nil, fmt.Errorf("Error reading bytes: %s", err.Error())
+	}
+
+	text := string(bytes)
+
+	return &text, nil
 }
 
 func downloadFile(sh *shell.Shell, cid string) error {
-	// TO BE IMPLEMENTED
+	return sh.Get(cid, YourLocalPath)
 }
 
 func addToIPNS(sh *shell.Shell, cid string) error {
-	// TO BE IMPLEMENTED
+	var lifetime time.Duration = 50 * time.Hour
+	var ttl time.Duration = 0 * time.Microsecond
+
+	_, err := sh.PublishWithDetails(cid, YourPublicKey, lifetime, ttl, true)
+	return err
 }
 
 func resolveIPNS(sh *shell.Shell) (string, error) {
-	// TO BE IMPLEMENTED
+	return sh.Resolve(YourPublicKey)
 }
 
 func main() {
