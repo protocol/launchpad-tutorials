@@ -17,23 +17,11 @@ const YourLocalPath = ""
 const YourPublicKey = ""
 
 func addFile(sh *shell.Shell, text string) (string, error) {
-	return sh.Add(strings.NewReader(text))
+	// TO BE IMPLEMENTED
 }
 
 func readFile(sh *shell.Shell, cid string) (*string, error) {
-	reader, err := sh.Cat(fmt.Sprintf("/ipfs/%s", cid))
-    if err != nil {
-        return nil, fmt.Errorf("Error reading the file: %s", err.Error())
-    }
-
-    bytes, err := io.ReadAll(reader)
-    if err != nil {
-        return nil, fmt.Errorf("Error reading bytes: %s", err.Error())
-    }
-
-    text := string(bytes)
-
-    return &text, nil
+	// TO BE IMPLEMENTED
 }
 
 func downloadFile(sh *shell.Shell, cid string) error {
