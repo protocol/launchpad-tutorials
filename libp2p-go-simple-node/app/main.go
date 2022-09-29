@@ -41,7 +41,7 @@ func connectToTargetNode(sourceNode host.Host, targetNode host.Host) {
 }
 
 func countSourceNodePeers(sourceNode host.Host) int {
-	// TO BE IMPLEMENTED
+	return len(sourceNode.Network().Peers())
 }
 
 func printNodeID(host host.Host) {
