@@ -23,8 +23,7 @@ func readHelloProtocol(s network.Stream) error {
 	// TO BE IMPLEMENTED: Read the stream and print its content
 }
 
-func runTargetNode(nodeInfo chan peer.AddrInfo) {
-	ctx, _ := context.WithCancel(context.Background())
+func runTargetNode() peer.AddrInfo {
 	
 	log.Printf("Creating target node...")
 	targetNode := createNode()
@@ -32,8 +31,7 @@ func runTargetNode(nodeInfo chan peer.AddrInfo) {
 
 	// TO BE IMPLEMENTED: Set stream handler for the "/hello/1.0.0" protocol
 
-	nodeInfo <- *host.InfoFromHost(targetNode)
-	<-ctx.Done()
+	return *host.InfoFromHost(targetNode)
 }
 
 func runSourceNode(targetNodeInfo peer.AddrInfo) {
@@ -48,13 +46,9 @@ func runSourceNode(targetNodeInfo peer.AddrInfo) {
 
 func main() {
 	ctx, _ := context.WithCancel(context.Background())
-	ch := make(chan peer.AddrInfo)
 
-	go runTargetNode(ch)
-
-	info := <-ch
-
-	go runSourceNode(info)
+	info := runTargetNode()
+	runSourceNode(info)
 
 	<-ctx.Done()
 }
