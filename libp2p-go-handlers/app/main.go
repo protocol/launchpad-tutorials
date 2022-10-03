@@ -24,7 +24,6 @@ func readHelloProtocol(s network.Stream) error {
 }
 
 func runTargetNode() peer.AddrInfo {
-	
 	log.Printf("Creating target node...")
 	targetNode := createNode()
 	log.Printf("Target node created with ID '%s'", targetNode.ID().String())
