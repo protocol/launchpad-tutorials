@@ -1,0 +1,21 @@
+{
+    "name": "drandexample",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Example on how to use Drand",
+    "main": "bias.js",
+    "scripts": {
+      "test": "node bias.js"
+    },
+    "keywords": [
+      "drand",
+      "example"
+    ],
+    "author": "Marco Rodriguez-Salinas",
+    "license": "MIT",
+    "dependencies": {
+      "abort-controller": "^3.0.0",
+      "drand-client": "^0.2.0",
+      "node-fetch": "^3.2.10"
+    }
+  }
