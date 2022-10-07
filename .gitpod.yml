@@ -1,0 +1,4 @@
+image: enoldev/pl-launchpad-go-tutorials:v0.1
+vscode:
+  extensions:
+    - golang.go
