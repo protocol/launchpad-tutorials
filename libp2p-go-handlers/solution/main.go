@@ -3,11 +3,12 @@ package main
 import (
 	"bufio"
 	"context"
+	"log"
+
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p/core/host"
 	"github.com/libp2p/go-libp2p/core/network"
 	"github.com/libp2p/go-libp2p/core/peer"
-	"log"
 )
 
 func createNode() host.Host {
@@ -33,9 +34,7 @@ func readHelloProtocol(s network.Stream) error {
 	return nil
 }
 
-func runTargetNode(nodeInfo chan peer.AddrInfo) {
-	ctx, _ := context.WithCancel(context.Background())
-
+func runTargetNode() peer.AddrInfo {
 	log.Printf("Creating target node...")
 	targetNode := createNode()
 	log.Printf("Target node created with ID '%s'", targetNode.ID().String())
@@ -51,8 +50,7 @@ func runTargetNode(nodeInfo chan peer.AddrInfo) {
 		}
 	})
 
-	nodeInfo <- *host.InfoFromHost(targetNode)
-	<-ctx.Done()
+	return *host.InfoFromHost(targetNode)
 }
 
 func runSourceNode(targetNodeInfo peer.AddrInfo) {
@@ -78,13 +76,9 @@ func runSourceNode(targetNodeInfo peer.AddrInfo) {
 
 func main() {
 	ctx, _ := context.WithCancel(context.Background())
-	ch := make(chan peer.AddrInfo)
 
-	go runTargetNode(ch)
-
-	info := <-ch
-
-	go runSourceNode(info)
+	info := runTargetNode()
+	runSourceNode(info)
 
 	<-ctx.Done()
 }
