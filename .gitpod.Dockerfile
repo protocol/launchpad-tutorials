@@ -6,7 +6,7 @@ RUN wget https://dist.ipfs.tech/kubo/v0.16.0/kubo_v0.16.0_linux-amd64.tar.gz \
     && cd kubo && sudo cp ipfs /usr/bin/ipfs
 
 RUN sudo apt update -y && sudo apt upgrade -y \
-    && sudo apt install fuse \
+    && sudo apt -y install fuse \
     && wget https://github.com/filecoin-project/lotus/releases/download/v1.17.1/Lotus-v1.17.1-x86_64.AppImage \
     && chmod +x Lotus-v1.17.1-x86_64.AppImage \
     && sudo mv Lotus-v1.17.1-x86_64.AppImage /usr/local/bin/lotus
