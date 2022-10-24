@@ -1,5 +1,4 @@
-image:
-  file: .gitpod.Dockerfile
+image: enoldev/pl-launchpad-tutorials:v0.1
 vscode:
   extensions:
     - golang.go
