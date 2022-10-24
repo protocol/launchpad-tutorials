@@ -13,6 +13,7 @@ Although you can complete the tutorials in your own computer, a [Gitpod](https:/
 The workspace contains:
 - An IDE in the browser (Visual Studio Code)
 - The IPFS command-line utility (remember to execute `ipfs init` and `ipfs daemon` to use it)
+- The [Lotus](https://lotus.filecoin.io/) (Filecoin) command-line utility
 
 Click the button below to create the Gitpod workspace.
 
