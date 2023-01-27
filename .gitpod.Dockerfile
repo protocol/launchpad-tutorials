@@ -10,3 +10,8 @@ RUN sudo apt update -y && sudo apt upgrade -y \
     && wget https://github.com/filecoin-project/lotus/releases/download/v1.17.1/Lotus-v1.17.1-x86_64.AppImage \
     && chmod +x Lotus-v1.17.1-x86_64.AppImage \
     && sudo mv Lotus-v1.17.1-x86_64.AppImage /usr/local/bin/lotus
+
+RUN curl -sL https://get.bacalhau.org/install.sh | bash
+
+RUN alias python="python3" \
+    && alias pip="pip3"

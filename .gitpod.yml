@@ -1,4 +1,5 @@
-image: enoldev/pl-launchpad-tutorials:v0.1
+image: enoldev/pl-launchpad-tutorials:v0.2
 vscode:
   extensions:
     - golang.go
+    - ms-python.python
